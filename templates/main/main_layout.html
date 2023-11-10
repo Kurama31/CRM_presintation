@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    <title>Test task from Gubaydullin Igor</title>
+
+</head>
+
+<body>
+
+<div class="theme_container">
+<div class="temp_helper">
+
+
+</div>
+<header class="top-navigation" >
+    <div> some label </div>
+        <div class="navbar">
+          <a href="/">Home</a>
+          <a href="{% url 'adminka' %}">adminka</a>
+
+          <div class="dropdown">
+                <button class="dropbtn">todo list
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <a href="{% url 'todo_list' %}" >todo list</a>
+                  <a href="#" onclick="document.getElementById('id02').style.display='block'">Make task</a>
+                </div>
+          </div>
+
+          <a href="{% url 'blog_index' %}">blog</a>
+          <a href="#">work schedule</a>
+            <div class="dropdown">
+                <button class="dropbtn">Dropdown
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <a href="https://itchief.ru/html-and-css/flexbox" target="_blank">Выравнивание flex</a>
+                  <a href="https://html5css.ru/" target="_blank">Готовые решения</a>
+                  <a href="#" target="_blank">Link 2</a>
+                </div>
+            </div>
+        </div>
+<!--    <div class="space"> </div>-->
+    <label id="switch" class="switch">
+            <input type="checkbox" onchange="toggleTheme()" id="slider">
+            <span class="slider round"></span>
+    </label>
+    <div class="topnav">
+        <div class="search-container">
+            <form action="#">
+              <input type="text" placeholder="Search.." name="search">
+              <button type="submit" > &#128269; </button>
+            </form>
+        </div>
+    </div>
+
+<!--================== Login ==============================-->
+
+
+<!--<a href="#" class="login" onclick="document.getElementById('id01').style.display='block'" >login</a>-->
+
+
+        <selection>
+            {% if get_auth %}
+                <a class="login" href="/auth/logout/" >Выйти ({{get_auth}})</a>
+            {% else %}
+                <a class="login" href="#Login" onclick="document.getElementById('id01').style.display='block'">Войти</a>
+            {% endif %}
+        </selection>
+
+
+
+<div id="id01" class="modal">
+
+  <form class="modal-content animate" action="/auth/login/" method="post">
+      {% csrf_token %}
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+      <img src="img_avatar2.png" alt="Avatar" class="avatar">
+    </div>
+<!--USERNAME block-->
+    <div class="modal-container">
+        <label ><b>Username</b></label>
+        <input class="input_login" type="text" placeholder="Enter Username" name="username" required>
+
+        <label ><b>Password</b></label>
+        <div class="password_feld">
+          <input class="input_password" type="password" placeholder="Enter Password" name="password" required id="password-input">
+          <a href="#" class="eye" onclick="return show_hide_password(this);"></a>
+        </div>
+
+        <button class="input_login_button" type="submit">Login</button>
+        <label>
+          <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+    </div>
+
+    <div class="modal-container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      <span class="psw">Forgot <a href="#">password?</a></span>
+    </div>
+  </form>
+</div>
+<!--================== /Login ==============================-->
+
+<!--================== Make todo_ticket ==============================-->
+<!--
+    <div id="id02" class="modal">
+        Создание задачи<br>
+        <form class="modal-content animate" method="POST" action="#close" >
+
+
+            <input type="text" name="title" ><br>
+            <input type="text" name="content" ><br>
+            <input type="hidden" name="created" ><br>
+            <input type="datetime-local" name="due_date" ><br>
+            <input type="text" name="category" ><br>
+            <button class="submit" type="submit" >Создать задачу</button><br>
+        </form>
+    </div>
+-->
+<!--<div id="id02" class="modal"> Wrong window </div>-->
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+//var modal = document.getElementById('id02');
+
+// When the user clicks anywhere outside of the modal, close it
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+        console.log('main_layout js scrips', event.target)
+    }
+}
+
+// eye
+    function show_hide_password(target){
+        var input = document.getElementById('password-input');
+        if (input.getAttribute('type') == 'password') {
+            target.classList.add('view');
+            input.setAttribute('type', 'text');
+        } else {
+            target.classList.remove('view');
+            input.setAttribute('type', 'password');
+        }
+        return false;
+    }
+</script>
+
+<!--================== /Login =============================-->
+    <button class="registration"> Registration </button>
+    <div class="block_divider" >some text or divider</div>
+{% block content %}
+{% endblock %}
+</header>
+
+
+<!--======================== CONTENT  ================================== -->
+<!--
+<div class="main_container">
+  <div class="flex-main_container_element-2" >flex-элемент #2<br>
+
+  </div>
+  <div calss="flex-main_container_element-3" >flex-элемент #3</div>
+</div>
+-->
+
+
+
+
+
+
+<!-- Это див переключения темы. должен быть всегда в конце-->
+</div>
+
+<script>
+     // function to set a given theme/color-scheme (ВЫБОР ЦВЕТОВОЙ СХЕМЫ)
+        function setTheme(themeName) {
+            localStorage.setItem('theme', themeName);
+            document.documentElement.className = themeName;
+        }
+
+        // function to toggle between light and dark theme
+        function toggleTheme() {
+            if (localStorage.getItem('theme') === 'theme-dark') {
+                setTheme('theme-light');
+            } else {
+                setTheme('theme-dark');
+            }
+        }
+
+        // Immediately invoked function to set the theme on initial load
+        (function () {
+            if (localStorage.getItem('theme') === 'theme-dark') {
+                setTheme('theme-dark');
+                document.getElementById('slider').checked = false;
+            } else {
+                setTheme('theme-light');
+              document.getElementById('slider').checked = true;
+            }
+        })();
+</script>
+
+</body>
+
+<footer>
+  <p>Created by Kurama31</p>
+  <p>Contact information: <a href="do not contack with me pls))))">
+  dot't</a></p>
+</footer>
+
+</html>

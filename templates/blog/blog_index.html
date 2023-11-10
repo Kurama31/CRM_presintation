@@ -1,0 +1,58 @@
+{% extends 'main/main_layout.html' %}
+
+{% block title %}Календарь{% endblock %}
+
+
+{% block content %}
+{% if get_auth %}
+
+<div class="main_container">
+    <div class="flex_main_container_left_navbar">
+        <div class="left_navbar">
+            <a onclick="document.getElementById('id_todo_modal').style.display='block'" >Make post</a>
+        </div>
+    </div>
+
+    <div class="flex_main_container_content">
+        anoter block
+    </div>
+
+
+<!--  <div>flex-column #2</div>-->
+<!--  <div>flex-column #3</div>-->
+
+</div>
+<!--================== Make POST ==============================-->
+
+    <div id="id_todo_modal" class="modal" >
+        Создание задачи<br>
+<!--        class="modal-content animate"-->
+        <form class="modal_make_task_hover animate" method="POST" action="#close" >
+            {% csrf_token %}
+
+            <input type="text" name="title" ><br>
+            <input type="text" name="content" ><br>
+            <input type="hidden" name="created" ><br>
+            <input type="datetime-local" name="due_date" ><br>
+            <input type="text" name="category" ><br>
+            <button class="submit" type="submit" >Создать задачу</button><br>
+        </form>
+    </div>
+
+
+<script>
+// Get the modal
+var todo_modal = document.getElementById('id_todo_modal');
+
+// When the user clicks anywhere outside of the modal, close it
+
+window.onclick = function(event) {
+    if (event.target == todo_modal) {
+        todo_modal.style.display = "none";
+    }
+    console.log('todo js scrips', event.target)
+}
+
+</script>
+{% endif %}
+{% endblock %}

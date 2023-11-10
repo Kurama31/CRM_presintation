@@ -1,0 +1,74 @@
+{% extends 'main/main_layout.html' %}
+
+{% block title %}Календарь{% endblock %}
+
+
+{% block content %}
+{% if get_auth %}
+
+<div class="main_container">
+    <div class="flex_main_container_left_navbar" >
+        <div class="left_navbar">
+            <a onclick="document.getElementById('id_todo_modal').style.display='block'" >Make task</a>
+        </div>
+    </div>
+
+    <div class="flex_main_container_content">
+        <div class="table_column">
+          <div class="table_row">
+              <div class="table_number">Номер </div>
+              <div class="head_of_table_cell">Название </div>
+              <div class="head_of_table_cell">Описание </div>
+              <div class="head_of_table_cell">Дата создания</div>
+              <div class="head_of_table_cell">Целевое время</div>
+              <div class="head_of_table_cell">Категория </div>
+          </div>
+          <div class="table_row">
+            <div class="table_number">#0</div>
+            <div class="table_cell">flex-cell #1</div>
+            <div class="table_cell">flex-cell #2</div>
+            <div class="table_cell">flex-cell #3</div>
+            <div class="table_cell">flex-cell #4</div>
+            <div class="table_cell">flex-cell #5</div>
+          </div>
+        </div>
+    </div>
+<!--  <div>flex-column #2</div>-->
+<!--  <div>flex-column #3</div>-->
+
+</div>
+<!--================== Make todo_ticket ==============================-->
+
+    <div id="id_todo_modal" class="modal" >
+        Создание задачи<br>
+<!--        class="modal-content animate"-->
+        <form class="modal_make_task_hover animate" method="POST" action="#close" >
+            {% csrf_token %}
+
+            <input class="input_task" type="text" name="title" ><br>
+            <input class="input_task" type="text" name="content" ><br>
+            <input type="hidden" name="created" ><br>
+            <input  type="datetime-local" name="due_date" ><br>
+            <input class="input_task" type="text" name="category" ><br>
+            <button class="submit" type="submit" >Создать задачу</button><br>
+        </form>
+    </div>
+
+<!--<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A3171dbf0ffd5ad8e37f72fa15d236e87c7a55c1105f0c255737add4f3e5c7873&amp;width=1200&amp;height=500&amp;lang=ru_RU&amp;scroll=true"></script>-->
+
+<script>
+// Get the modal
+var todo_modal = document.getElementById('id_todo_modal');
+
+// When the user clicks anywhere outside of the modal, close it
+
+window.onclick = function(event) {
+    if (event.target == todo_modal) {
+        todo_modal.style.display = "none";
+    }
+    console.log('todo js scrips', event.target)
+}
+
+</script>
+{% endif %}
+{% endblock %}

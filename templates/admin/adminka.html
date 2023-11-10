@@ -1,0 +1,18 @@
+{% extends 'main/main_layout.html' %}
+
+{% block title %}Календарь{% endblock %}
+
+
+{% block content %}
+{% if get_auth %}
+its work, its ADMINKA<br>
+sql_test:  {{new_id}}
+
+
+<form class="modal_make_task_hover animate" method="POST" action="#close" >
+    {% csrf_token %}
+    Создать категорию: <input class="input_task" type="text" name="title" ><br>
+     <button class="submit" type="submit" >Создать</button><br>
+</form>
+{% endif %}
+{% endblock %}
